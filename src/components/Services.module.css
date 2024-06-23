@@ -1,0 +1,47 @@
+.container {
+  width: 80%;
+  margin: auto;
+  margin-top: 3rem;
+}
+
+.container h1 {
+  text-align: center;
+  font-size: 2.2rem;
+}
+
+.container p {
+  text-align: center;
+}
+.container ul {
+  padding-right: 3.6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container ul li {
+  text-align: center;
+  margin-top: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  list-style: none;
+}
+
+.container ul li a {
+  border: 1px solid rgb(85, 48, 0);
+  border-radius: 2.5px;
+  background-color: darkorange;
+
+  font-size: 2rem;
+  color: white;
+
+  padding: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  text-decoration: none;
+}
+
+.container ul li p {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}

@@ -1,0 +1,43 @@
+.container {
+  background-color: rgb(240, 240, 240);
+  height: 100vh;
+  padding-top: 8rem;
+  margin: 0 auto;
+}
+
+.form {
+  width: 25%;
+  margin: auto;
+
+  flex-direction: column;
+  display: flex;
+
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 1.2rem;
+}
+
+.form input {
+  border: 1px solid black;
+  height: 1.5rem;
+}
+
+.form label {
+  font-size: 1rem;
+  padding-top: 1rem;
+}
+
+.form button {
+  width: 25%;
+  height: 2rem;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.form a {
+  margin: auto;
+  margin-top: 2%;
+  font-size: 80%;
+  text-decoration: none;
+}

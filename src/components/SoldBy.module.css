@@ -1,0 +1,5 @@
+.error {
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+}

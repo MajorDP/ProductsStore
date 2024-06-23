@@ -1,0 +1,118 @@
+.container {
+  width: 75%;
+  margin: auto;
+  margin-top: 5rem;
+
+  background-color: rgb(240, 240, 240);
+  border: 2px solid black;
+  border-radius: 8px;
+
+  display: flex;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40%;
+  border-right: 2px solid black;
+}
+
+.leftSide h3 {
+  width: 100%;
+  text-align: center;
+}
+
+.leftSide div {
+  display: flex;
+  justify-content: center;
+}
+
+.leftSide button {
+  width: 25%;
+  border: 1px solid rgb(85, 48, 0);
+  border-radius: 2.5px;
+  background-color: darkorange;
+
+  font-size: 1rem;
+  color: white;
+
+  cursor: pointer;
+  margin: 0.5rem;
+  padding: 0.2rem;
+
+  text-decoration: none;
+}
+
+.editBtn {
+  width: 8%;
+  border: 1px solid rgb(85, 48, 0);
+  border-radius: 2.5px;
+  background-color: darkorange;
+
+  font-size: 1rem;
+  text-align: center;
+  color: white;
+
+  margin: 0.5rem;
+  padding: 0.2rem;
+
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.leftSide img {
+  margin: auto;
+  height: 12rem;
+  border: 1px solid black;
+  object-fit: contain;
+}
+
+.leftSide p {
+  width: 100%;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.rightSide {
+  text-align: center;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rightSide h3 {
+  width: 75%;
+  text-align: center;
+}
+
+.rightSide p {
+  width: 80%;
+  padding-top: 1rem;
+  text-align: justify, center;
+  text-overflow: ellipsis;
+}
+
+.rightSide button {
+  border: 1px solid rgb(85, 48, 0);
+  border-radius: 2.5px;
+  background-color: darkorange;
+
+  font-size: 1rem;
+  color: white;
+
+  margin: 0.5rem;
+  margin-top: -1rem;
+  padding: 0.2rem;
+
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.leftSide button:hover,
+.rightSide button:hover,
+.editBtn:hover {
+  background-color: rgb(236, 130, 0);
+}

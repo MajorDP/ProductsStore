@@ -1,0 +1,147 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(240, 240, 240);
+}
+.container p {
+  text-align: center;
+  margin-bottom: auto;
+}
+
+.search {
+  width: 50%;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+.search div {
+  margin: auto;
+}
+
+.search input {
+  margin-bottom: 4%;
+  padding: 0.35rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.search select {
+  margin: auto;
+  border: 1px solid #ccc;
+  margin-left: 10px;
+}
+
+.search select {
+  height: 1.66rem;
+}
+
+.search a {
+  border: 1px solid rgb(85, 48, 0);
+  border-radius: 2.5px;
+  background-color: darkorange;
+
+  font-size: 1rem;
+  color: white;
+
+  margin: 0.5rem;
+  padding: 0.2rem;
+
+  text-decoration: none;
+}
+
+.products ul {
+  list-style: none;
+}
+
+.products ul li {
+  border: 2px solid black;
+  border-left: none;
+  border-radius: 10px;
+  width: 80%;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 0.5rem;
+
+  transition: 0.2s ease-in;
+}
+
+.products ul li:hover {
+  transform: scale(1.15);
+}
+
+.notOwnedByUser {
+  background-color: white;
+}
+.ownedByUser {
+  background-color: rgb(203, 223, 203);
+}
+
+.products ul li span {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.products ul li span img {
+  width: 20%;
+  min-width: 7rem;
+  object-fit: fill;
+  object-position: center;
+  border: 2px solid black;
+  border-radius: 10px;
+
+  transition: 0.2s ease;
+}
+
+.products ul li span img:hover {
+  transform: scale(1.5);
+}
+
+.products ul li h3 {
+  margin: auto;
+  font-size: 100%;
+}
+
+.products ul li p {
+  margin: auto;
+  padding: 0.5rem;
+  text-align: center;
+  width: 20%;
+
+  transition: 0.2s ease-in-out;
+}
+
+.products ul li p:hover {
+  margin: auto;
+  font-size: 1.2rem;
+}
+
+.categories {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: auto;
+  width: 80%;
+}
+
+.pagination button {
+  border: 1px solid rgb(85, 48, 0);
+  border-radius: 2.5px;
+  background-color: darkorange;
+
+  font-size: 1rem;
+  color: white;
+
+  margin: 0.5rem;
+  padding: 0.5rem;
+
+  text-decoration: none;
+}

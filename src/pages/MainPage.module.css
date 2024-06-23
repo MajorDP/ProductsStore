@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  height: 100vh;
+}
+.intro {
+  background-color: rgb(240, 240, 240);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 2rem;
+  text-align: start;
+}
+
+.chart {
+  margin-left: 8rem;
+  background-color: rgb(235, 235, 234);
+  border: 1px solid rgb(173, 173, 173);
+}
+
+.info {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info h2 {
+  margin-left: 8rem;
+  font-size: 2.65rem;
+  text-align: center;
+}
+
+.info p {
+  margin-left: 8rem;
+  text-align: start;
+}
+
+.img {
+  margin-left: 20rem;
+}
