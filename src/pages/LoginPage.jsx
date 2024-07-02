@@ -47,7 +47,7 @@ function LoginPage() {
         />
         <Link to="/register">Don't have an account yet?</Link>
         <button type="submit" disabled={isLoading}>
-          Log in
+          {isLoading ? "Please wait..." : "Log in"}
         </button>
       </form>
     </div>

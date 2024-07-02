@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import {
   getUserBalance,
   getUserById,
@@ -14,34 +15,36 @@ import { useNavigate } from "react-router-dom";
 export function useLogin() {
   const navigate = useNavigate();
 
-  const { mutate: login, isLoading } = useMutation({
+  const { mutate: login, isPending } = useMutation({
     mutationFn: ({ email, password }) => loginAPI({ email, password }),
     onSuccess: () => {
+      toast.success("Login was successful, welcome.");
       navigate("/");
     },
     onError: (err) => {
-      console.log("ERROR ", err);
+      toast.error(err.message);
     },
   });
 
-  return { login, isLoading };
+  return { login, isLoading: isPending };
 }
 
 export function useRegister() {
   const navigate = useNavigate();
 
-  const { mutate: register, isLoading } = useMutation({
+  const { mutate: register, isPending } = useMutation({
     mutationFn: ({ email, password, username }) =>
       registerAPI({ email, password, username }),
     onSuccess: () => {
+      toast.success("Successfully registered, welcome.");
       navigate("/");
     },
     onError: (err) => {
-      console.log("ERROR ", err);
+      toast.error(err.message);
     },
   });
 
-  return { register, isLoading };
+  return { register, isLoading: isPending };
 }
 
 export function useLogout() {
@@ -53,9 +56,7 @@ export function useLogout() {
       navigate("/");
       window.location.reload();
     },
-    onError: (err) => {
-      console.log("ERROR ", err);
-    },
+    onError: (err) => {},
   });
 
   return { logout, isLoading };
@@ -80,10 +81,10 @@ export function usePurchase() {
       userPurchase({ ownerUser, currentUser, price });
     },
     onSuccess: () => {
-      alert("Purchase was successful.");
+      toast.success("Purchase was successful.");
     },
     onError: (err) => {
-      console.log(err.message);
+      toast.error("Could not purchase this product.");
     },
   });
 
@@ -106,7 +107,7 @@ export function useGetUserBalance(id) {
 export function useUpdateUser() {
   const { mutate: update, isLoading: isUpdating } = useMutation({
     mutationFn: ({ id, newUser }) => updateUser({ id, newUser }),
-    onSuccess: () => alert("User updated."),
+    onSuccess: () => toast.success("User updated."),
   });
   return { update, isUpdating };
 }
@@ -114,7 +115,7 @@ export function useUpdateUser() {
 export function useUpdateUserBalance() {
   const { mutate: updateBalance, isLoading: isUpdatingBalance } = useMutation({
     mutationFn: ({ id, balance }) => updateUserBalance({ id, balance }),
-    onSuccess: () => alert("User updated."),
+    onSuccess: () => toast.success("User updated."),
   });
   return { updateBalance, isUpdatingBalance };
 }

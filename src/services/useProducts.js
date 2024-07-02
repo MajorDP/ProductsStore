@@ -8,6 +8,7 @@ import {
   postProduct,
   putProductOnSale,
 } from "../API/apiProducts";
+import toast from "react-hot-toast";
 
 export function useProducts() {
   const {
@@ -22,14 +23,13 @@ export function useProducts() {
 }
 
 export function usePostProducts() {
-  const { mutate: usePostProduct, isLoading: isPosting } = useMutation({
+  const { mutate: usePostProduct, isPending: isPosting } = useMutation({
     mutationFn: (data) => postProduct(data),
     onSuccess: () => {
-      alert("posted");
-      window.location.reload();
+      toast.success(`Your product was succesfully listed for sale.`);
     },
     onError: (err) => {
-      alert(
+      toast.error(
         "There was an error with either the product's details or image, please double check before posting!"
       );
     },
@@ -52,14 +52,13 @@ export function useProductById(id) {
 }
 
 export function useDeleteProduct() {
-  const { mutate: deleteProductById, isLoading: isDeleting } = useMutation({
+  const { mutate: deleteProductById, isPending: isDeleting } = useMutation({
     mutationFn: (id) => deleteProduct(id),
     onSuccess: () => {
-      alert(`Product was deleted successfully!`);
-      window.location.reload();
+      toast.success(`Product was removed successfully.`);
     },
     onError: (err) => {
-      console.log(err.message);
+      toast.error(`Product could not be removed.`);
     },
   });
 
@@ -73,7 +72,7 @@ export function usePutProductOnSale() {
     mutationFn: ({ id, currentPrice, onSale }) =>
       putProductOnSale({ id, currentPrice, onSale }),
     onSuccess: () => queryClient.invalidateQueries("product"),
-    onError: () => alert("failed"),
+    onError: () => toast.error("Product could not be listed on sale."),
   });
 
   return { updateSale, isUpdating };
@@ -101,10 +100,25 @@ export function useHandleVote() {
       handleVote({ id, currentRating, vote }),
     onSuccess: () => {
       queryClient.invalidateQueries("currentProdRating");
-      alert("Voted Successfully");
+      toast.success("Vote placed successfully");
     },
-    onError: () => console.log("FAIL"),
+    onError: () => toast.error("Couldn't place vote."),
   });
 
   return { updateVote, isVoting };
+}
+
+export function useUpdateProduct() {
+  const queryClient = useQueryClient();
+
+  const { mutate: updateProduct, isPending: isUpdating } = useMutation({
+    mutationFn: ({ id, newProduct }) => updateProduct({ id, newProduct }),
+    onSuccess: () => {
+      queryClient.invalidateQueries("products");
+      toast.success("Product updated successfully.");
+    },
+    onError: () => toast.error("Couldn't update product."),
+  });
+
+  return { updateProduct, isUpdating };
 }

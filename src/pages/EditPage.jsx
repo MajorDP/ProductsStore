@@ -157,18 +157,23 @@ function EditPage() {
     const image = data.productImg[0];
     const categories = data.productCategories.map((option) => option.value);
     console.log(image);
-    usePostProduct({
-      ...data,
-      productImg: image,
-      productCategories: categories,
-    });
+
     deleteProductById(searchId);
-    navigate("/browse");
+    usePostProduct(
+      {
+        ...data,
+        productImg: image,
+        productCategories: categories,
+      },
+      {
+        onSuccess: () => {
+          navigate("/browse");
+        },
+      }
+    );
   }
 
-  function onError(err) {
-    console.log("PRODLEM WITH EDITING: ", err.message);
-  }
+  function onError(err) {}
   return (
     <div className={styles.container}>
       <Link to={-1}>Cancel</Link>
@@ -234,7 +239,9 @@ function EditPage() {
             required: true,
           })}
         />
-        <button type="submit">Release for sale</button>
+        <button type="submit" disabled={isDeleting || isPosting}>
+          {isDeleting || isPosting ? "Editing product..." : "Edit product"}
+        </button>
       </form>
     </div>
   );

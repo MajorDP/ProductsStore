@@ -43,7 +43,7 @@ function ProductInfo() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const currentUserId = currentUser.id;
   const userBalance = currentUser.balance;
-  console.log(product);
+
   function handleDelete(id) {
     deleteProductById(id);
     navigate("/browse");

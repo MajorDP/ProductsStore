@@ -5,4 +5,4 @@
 - Remove products from store
 - Edit user information
 
-* More coming soon
+* Improved user experience with auth, store and updating account

@@ -3,6 +3,7 @@ import styles from "./SellPage.module.css";
 import { useForm } from "react-hook-form";
 import { usePostProducts, useProductById } from "../services/useProducts";
 import Select from "react-select";
+import toast from "react-hot-toast";
 
 function SellPage() {
   const navigate = useNavigate();
@@ -145,18 +146,23 @@ function SellPage() {
   function onSubmit(data) {
     const image = data.productImg[0];
     const categories = data.productCategories.map((option) => option.value);
-    console.log(image);
-    usePostProduct({
-      ...data,
-      productImg: image,
-      productCategories: categories,
-    });
-    navigate("/browse");
+
+    usePostProduct(
+      {
+        ...data,
+        productImg: image,
+        productCategories: categories,
+      },
+      {
+        onSuccess: () => {
+          navigate("/browse");
+        },
+      }
+    );
   }
 
-  function onError(err) {
-    console.log(err.message);
-  }
+  function onError(err) {}
+
   return (
     <div className={styles.container}>
       <Link to={-1}>Cancel</Link>
@@ -212,12 +218,15 @@ function SellPage() {
         <input
           id="image"
           type="file"
+          accept="image/png, image/jpeg"
           placeholder=""
           {...register("productImg", {
             required: true,
           })}
         />
-        <button type="submit">Release for sale</button>
+        <button type="submit" disabled={isPosting}>
+          {isPosting ? "Releasing..." : "Release for sale"}
+        </button>
       </form>
     </div>
   );

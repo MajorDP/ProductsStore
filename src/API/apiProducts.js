@@ -1,16 +1,16 @@
+import toast from "react-hot-toast";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getProducts() {
   let { data, error } = await supabase.from("products").select("*");
 
   if (error) {
-    console.log("could not get products");
+    throw error;
   }
   return data;
 }
 
 export async function postProduct(newProduct) {
-  console.log(newProduct);
   const imageName = `${Math.random()}-${newProduct.productImg.name}`.replaceAll(
     "/",
     ""
@@ -18,14 +18,6 @@ export async function postProduct(newProduct) {
 
   const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`; //Needed when posting a product into products table to reference the picture of the product from productImages bucket in storage
   const userId = JSON.parse(localStorage.getItem("user")).id;
-
-  const { data, error } = await supabase
-    .from("products")
-    .insert([{ ...newProduct, productImg: imagePath, soldBy: userId }]); //POST query for the product
-
-  if (error) {
-    throw new Error("Product could not be uploaded");
-  }
 
   const { error: storageError } = await supabase.storage
     .from("productImages")
@@ -36,8 +28,15 @@ export async function postProduct(newProduct) {
       .from("products")
       .delete()
       .eq("id", data.id);
-    throw new Error("Image could not be uploaded");
+
+    throw storageError;
   }
+
+  const { data, error } = await supabase
+    .from("products")
+    .insert([{ ...newProduct, productImg: imagePath, soldBy: userId }]); //POST query for the product if image was uploaded successfully
+
+  if (error) throw error;
 }
 
 export async function getProductById(id) {
@@ -48,18 +47,17 @@ export async function getProductById(id) {
     .single();
 
   if (error) {
-    console.log(error.message);
+    throw error;
   }
 
   return product;
 }
 
 export async function deleteProduct(id) {
-  console.log(id);
   const { error } = await supabase.from("products").delete().eq("id", id);
 
   if (error) {
-    console.log(error.message);
+    throw error;
   }
 }
 
@@ -82,8 +80,16 @@ export async function putProductOnSale({ id, currentPrice, onSale }) {
     const { data, error } = await query.select().single();
 
     // Check for errors
-    if (error) {
+    if (error && onSale === true) {
+      toast.error("Product could not be taken off sale.");
       throw error;
+    } else if (error && onSale === false) {
+      toast.error("Product could not be listed on sale.");
+      throw error;
+    } else if (!error && onSale === true) {
+      toast.success("Product was successfully taken off sale.");
+    } else if (!error && onSale === false) {
+      toast.success("Product was successfully listed on sale.");
     }
   } catch (error) {
     console.error("Error updating product price:", error.message);
@@ -121,12 +127,4 @@ export async function getUserProducts(id) {
     alert("Could not get user's products!");
   }
   return productsOfUser;
-}
-
-export async function updateProduct(id, newProduct) {
-  const { data, error } = await supabase
-    .from("products")
-    .update({ ...newProduct })
-    .eq("id", id)
-    .select();
 }

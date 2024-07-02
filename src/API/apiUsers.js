@@ -1,7 +1,7 @@
+import toast from "react-hot-toast";
 import supabase from "./supabase";
 
 export async function register({ email, password, username }) {
-  console.log(email, password, username);
   const { data, error } = await supabase
     .from("userAccounts")
     .insert([
@@ -15,8 +15,10 @@ export async function register({ email, password, username }) {
     .select()
     .single();
 
-  console.log(data);
-  if (error) throw new Error(error.message);
+  if (error && error.code === "23505")
+    throw new Error("User with this email already exists.");
+
+  if (error) throw error;
 
   localStorage.setItem("user", JSON.stringify(data));
 
@@ -31,7 +33,8 @@ export async function login({ email, password }) {
     .eq("password", password)
     .single();
 
-  if (error) console.log(error.message);
+  if (!userAccount) throw new Error("User was not found.");
+  if (error) throw error;
 
   localStorage.setItem("user", JSON.stringify(userAccount));
 }
